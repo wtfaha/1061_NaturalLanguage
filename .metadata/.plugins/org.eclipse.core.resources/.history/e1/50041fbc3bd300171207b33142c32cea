@@ -1,0 +1,117 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ProduceWordCombinations {
+
+	static String[] dictSpilt;
+	static String[] inputSpilt;
+	
+	public static void main(String[] args) {
+		try {
+			//readFile
+			String dict = readFile("txt/wordSeg_testDictionary_1061.txt");
+			String input = readFile("txt/wordSeg_testInput_1061.txt");
+			
+			//spilt
+			dictSpilt = dict.split("\\n");
+			inputSpilt = input.split("\\n");
+		} catch (IOException e) {
+			// TODO 自動產生的 catch 區塊
+			e.printStackTrace();
+		}
+		
+		System.out.println("dictSpilt : " + dictSpilt);
+		System.out.println("inputSpilt[0] : " + inputSpilt[0]);
+		System.out.println("inputSpilt[0]].length() : " + inputSpilt[0].length());
+		System.out.println("inputSpilt[0].substring(10, 11) : " + inputSpilt[0].substring(10, 11));
+
+		
+		int n = 3;
+		
+		foo(2, n, "1");
+		
+		
+		String[] test = {"1","2","3","4","5"};
+		int temp = 5 + 5-1;
+		for(int i=1;i<5;i++){
+		}
+		
+		/*
+		
+		int start = 0;
+		int end = 1;
+		
+		int judge = 0;
+		//while(judge != inputSpilt[0].length()){
+			for(int len=1;len<inputSpilt[0].length();len++){
+				while(end != inputSpilt[0].length()){
+					if(searchInput(inputSpilt[0], start, end)){
+						System.out.println("inputSpilt[0].substring(start, end) : " + inputSpilt[0].substring(start, end));
+						start = end;
+						end += len;
+						if(end >= inputSpilt[0].length())
+							end = inputSpilt[0].length();
+						//System.out.println("start : " + start);
+						//System.out.println("end : " + end);
+					}
+					else{
+						end +=1;
+						System.out.println("end : " + end);
+					}
+				}
+				System.out.println("-----------------------" + len);
+				start = 0;
+				end = 1;
+			}
+			//j++;
+		//}*/
+	}
+	
+	
+	public static void foo(Integer i, Integer n, String s) {
+		if (i == n) {
+			System.out.print(s + "\n");
+			return ;
+		}
+		foo(i + 1, n, s + " " + i);
+		foo(i + 1, n, s + i.toString());
+	}
+	
+	
+	
+	public static boolean searchInput(String input, int start, int end){
+		if(searchDictionary(input.substring(start, end))){
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean searchDictionary(String part){
+		for(int i=0;i<dictSpilt.length;i++){
+			if(dictSpilt[i].equals(part)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+
+	public static String readFile(String fileName) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		try {
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
+			
+			while (line != null) {
+				sb.append(line);
+				sb.append("\n");
+				line = br.readLine();
+			}
+			return sb.toString();
+		} finally {
+			br.close();
+		}
+	}
+}
